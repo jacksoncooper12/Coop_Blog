@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Coop_Blog.Models.BlogPost>
+
+@foreach (var post in Model)
+{
+    <div class="blog-posts">
+        <a href="#">
+            <div class="item d-flex align-items-center">
+                <div class="image"><img src="~/Images/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
+                <div class="title">
+                    <strong>@post.Title</strong>
+                    <div class="d-flex align-items-center">
+                        <div class="views"><i class="icon-eye"></i> 500</div>
+                        <div class="comments"><i class="icon-comment"></i>12</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+}

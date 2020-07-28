@@ -1,0 +1,117 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Coop's Blog</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome CSS-->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom icon font-->
+    <link href="~/Content/fontastic.css" rel="stylesheet" />
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- Fancybox-->
+    <link href="~/Content/jquery.fancybox.min.css" rel="stylesheet" />
+    <!-- theme stylesheet-->
+    <link href="~/Content/style.default.css" rel="stylesheet" />
+    <!-- Custom stylesheet - for your changes-->
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Images/favicon.ico" rel="icon">
+
+</head>
+<body>
+    <header class="header">
+        <!-- Main Navbar-->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Navbar Brand -->
+                <div class="navbar-header d-flex align-items-center justify-content-between">
+                    <a href=@Url.Action("Index","Home") class="navbar-brand">Coop's Blog</a>
+                </div>
+                <!-- Navbar Menu -->
+                <div id="navbarcollapse" class="collapse navbar-collapse d-flex">
+                    <ul class="navbar-nav ml-auto vl">
+                        <li class="nav-item">
+                            <a href=@Url.Action("Index","Home") class="nav-link active ">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href=@Url.Action("Index", "BlogPosts") class="nav-link">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            @if (this.User.IsInRole("Admin"))
+                            {
+                                <a href=@Url.Action("Create", "BlogPosts") class="nav-link ">Post</a>
+                            }
+                            else 
+                            {
+                                <a href="https://jec-portfolio.netlify.app/" target="_blank" class="nav-link ">Portfolio</a>
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">Contact</a>
+                        </li>
+                    </ul>
+                    @Html.Action("_LoginPartial", "Home")
+                </div>
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+    <!-- Page Footer-->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="logo">
+                        <h6 class="text-white">Jackson Cooper</h6>
+                    </div>
+                    <div class="contact-details">
+                        <p>2316 St. John Rd. East Bend, NC 27018</p>
+                        <p>Phone: (336) 468-0374</p>
+                        <p>Email: <a href="mailto:jacksoncooper12@gmail.com">jacksoncooper12@gmail.com</a></p>
+                        <ul class="social-menu">
+                            <li class="list-inline-item"><a href="https://www.linkedin.com/in/jackson-cooper-a755681b2/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                            <li class="list-inline-item"><a href="https://github.com/jacksoncooper12" target="_blank"><i class="fa fa-github"></i></a></li>
+                            <li class="list-inline-item"><a href="https://www.instagram.com/jacksonian_democrazy/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="min-height:300px" class="offset-md-2 col-md-6" id="map">
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript files-->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.fancybox.min.js"></script>
+    <script src="~/Scripts/front.js"></script>
+    <script src="https://use.fontawesome.com/d7c2c057bc.js"></script>
+    <script>
+        function initMap() {
+            var location = { lat: 36.213890, lng: -80.599213 };
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 7,
+                center: location,
+                streetViewControl: false,
+                mapTypeControl: false,
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            })
+        } 
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt6b4vAFc0sRIlwktjIKhBRdH5iDocm5M&callback=initMap"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

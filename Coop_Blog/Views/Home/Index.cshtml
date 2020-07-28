@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Coop_Blog.Models.BlogPost>
+<section style="background: url(/Images/bubbaBG.jpg); background-size: cover; background-position: center center;" class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <h1>Coop's Blog - The chronical of my journey from "hello world!" to systems and employment.</h1>
+            </div>
+        </div><a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
+    </div>
+</section>
+<!-- Intro Section-->
+<section class="intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="h3">The Programming Process</h2>
+                <p class="text-big">Programming is one of the most fulfilling and rewarding activities a person can take part in—when it works, of course. When it doesn't, the practice can be hair-pullingly frustrating. This blog aims to cover both aspects, and everything in between. Celebrate with me, laugh at me, and watch me progress throughout my journey. </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="featured-posts no-padding-top">
+    <div class="container">
+        <!-- Post-->
+        @foreach (var post in Model.Take(3))
+        {
+            <div class="row d-flex align-items-stretch">
+                <div class="text col-lg-7">
+                    <div class="text-inner d-flex align-items-center">
+                        <div class="content">
+                            <header class="post-header">
+                                <a href=@Url.Action("Details","BlogPosts",new { slug = post.Slug })><h2 class="h4">@post.Title</h2></a>
+                            </header>
+                            <a href=@Url.Action("Details","BlogPosts",new { slug = post.Slug })><p>@post.Abstract</p></a>
+                            <footer class="post-footer d-flex align-items-center">
+                                <div class="author d-flex align-items-center flex-wrap">
+                                    <div class="avatar"><img src="~/Images/headshot.png" alt="..." class="img-fluid"></div>
+                                    <div class="title"><span>Jackson Cooper</span></div>
+                                </div>
+                                <div class="date"><i class="fa fa-clock-o"></i> @post.Created.ToString("MMM dd, yyyy")</div>
+                                <div class="comments"><i class="fa fa-comments"></i>12</div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+                <div class="image col-lg-5" id="centered"><img src="@post.MediaPath" alt="..."></div>
+            </div><hr>
+        }
+    </div>
+</section>
+<!-- Divider Section-->
+<section style="background: url(/Images/divider-bg.jpg); background-size: cover; background-position: center bottom" class="divider">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h2 id="Joke"></h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Latest Posts -->
+<section class="latest-posts">
+    <div class="container">
+        <header>
+            <h2>Latest from the blog</h2>
+
+        </header>      
+        <div class="row">
+            @foreach (var post in Model.OrderByDescending(p => p.Created).Take(3))
+            {
+                <div class="post col-md-4">
+                    <div class="post-thumbnail"><a href=@Url.Action("Details","BlogPosts",new { slug = post.Slug })><img src="@post.MediaPath" alt="..." class="img-fluid"></a></div>
+                    <div class="post-details">
+                        <div class="post-meta d-flex justify-content-between">
+                            <div class="dateL"><i class="fa fa-clock-o"></i>  @post.Created.ToString("MMM dd, yyyy")</div>
+                            <div class="commentsL"><i class="fa fa-comments"></i>  12 </div>
+                        </div><a href=@Url.Action("Details","BlogPosts",new { slug = post.Slug })>
+                            <h3 class="h4">@post.Title</h3>
+                        </a>
+                        <p class="text-muted">@post.Abstract</p>
+                    </div>
+                </div>}
+        </div>
+        
+    </div>
+</section>
+<script>
+    function TellJoke() {
+        const rand = Math.random();
+        if (rand < 0.34) {
+            document.getElementById('Joke').innerHTML = "The beauty of a Boolean is that even if you are wrong, you are only off by a bit.";
+        }
+        else if (rand <= 0.67) {
+            document.getElementById('Joke').innerHTML = "A programmer puts two glasses on his bedside table before going to sleep. A full one, in case he gets thirsty, and an empty one, in case he doesn’t.";
+        }
+        else {
+            document.getElementById('Joke').innerHTML = "Debugging is like being the detective in a crime drama where you are also the murderer.";
+        }
+    }
+    TellJoke()
+</script>

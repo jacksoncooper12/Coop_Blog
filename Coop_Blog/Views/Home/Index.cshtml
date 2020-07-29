@@ -38,7 +38,7 @@
                                     <div class="title"><span>Jackson Cooper</span></div>
                                 </div>
                                 <div class="date"><i class="fa fa-clock-o"></i> @post.Created.ToString("MMM dd, yyyy")</div>
-                                <div class="comments"><i class="fa fa-comments"></i>12</div>
+                                <div class="comments"><i class="fa fa-comments"></i>@post.Comments.Count.ToString()</div>
                             </footer>
                         </div>
                     </div>
@@ -72,8 +72,8 @@
                     <div class="post-thumbnail"><a href=@Url.Action("Details","BlogPosts",new { slug = post.Slug })><img src="@post.MediaPath" alt="..." class="img-fluid"></a></div>
                     <div class="post-details">
                         <div class="post-meta d-flex justify-content-between">
-                            <div class="dateL"><i class="fa fa-clock-o"></i>  @post.Created.ToString("MMM dd, yyyy")</div>
-                            <div class="commentsL"><i class="fa fa-comments"></i>  12 </div>
+                            <div class="dateL"><i class="fa fa-clock-o"></i>   @post.Created.ToString("MMM dd, yyyy")</div>
+                            <div class="commentsL"><i class="fa fa-comments"></i>   @post.Comments.Count.ToString()</div>
                         </div><a href=@Url.Action("Details","BlogPosts",new { slug = post.Slug })>
                             <h3 class="h4">@post.Title</h3>
                         </a>

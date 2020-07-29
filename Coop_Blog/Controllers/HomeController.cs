@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Coop_Blog.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

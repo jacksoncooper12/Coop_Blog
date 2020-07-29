@@ -1,4 +1,4 @@
-﻿
+﻿@using Coop_Blog.Utilities
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +23,30 @@
     <!-- Custom stylesheet - for your changes-->
     <link href="~/Content/custom.css" rel="stylesheet" />
     <link href="~/Images/favicon.ico" rel="icon">
-
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
 </head>
 <body>
     <header class="header">
         <!-- Main Navbar-->
         <nav class="navbar navbar-expand-lg">
+            <div class="search-area">
+                <div class="search-area-inner d-flex align-items-center justify-content-center">
+                    <div class="close-btn"><i class="icon-close"></i></div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <form action=@Url.Action("Index", "BlogPosts")>
+                                <div class="form-group">
+                                    @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                                    {
+                                        <input type="text" name="searchStr" id="searchStr" placeholder="What are you looking for?">
+                                        <button type="submit" class="submit" id="searchStr" name="searchStr"><i class="icon-search"></i></button>
+                                    }
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
@@ -36,27 +54,28 @@
                 </div>
                 <!-- Navbar Menu -->
                 <div id="navbarcollapse" class="collapse navbar-collapse d-flex">
-                    <ul class="navbar-nav ml-auto vl">
+                    <ul class="navbar-nav ml-auto vl" style="padding-right:18px">
                         <li class="nav-item">
-                            <a href=@Url.Action("Index","Home") class="nav-link active ">Home</a>
+                            <a href=@Url.Action("Index","Home") class="nav-link @Html.IsActive("Home", "Index")">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href=@Url.Action("Index", "BlogPosts") class="nav-link">Blog</a>
+                            <a href=@Url.Action("Index", "BlogPosts") class="nav-link @Html.IsActive("BlogPosts", "Index")">Blog</a>
                         </li>
                         <li class="nav-item">
                             @if (this.User.IsInRole("Admin"))
                             {
                                 <a href=@Url.Action("Create", "BlogPosts") class="nav-link ">Post</a>
                             }
-                            else 
+                            else
                             {
                                 <a href="https://jec-portfolio.netlify.app/" target="_blank" class="nav-link ">Portfolio</a>
                             }
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">Contact</a>
+                            <a href="#" class="nav-link" style="padding-right:10px">Contact</a>
                         </li>
                     </ul>
+                    <div><a href=@Url.Action("Index", "BlogPosts") class="search-btn"><i class="icon-search" style="padding-right:8px; padding-left:15px;"></i></a></div>
                     @Html.Action("_LoginPartial", "Home")
                 </div>
             </div>
@@ -109,7 +128,7 @@
                 position: location,
                 map: map
             })
-        } 
+        }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt6b4vAFc0sRIlwktjIKhBRdH5iDocm5M&callback=initMap"></script>
     @RenderSection("Scripts", false)

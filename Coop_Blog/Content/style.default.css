@@ -24,6 +24,10 @@ span {
   transition: all 0.3s;
 }
 
+#searchStr button{
+    border-radius:4px !important
+}
+
 a:hover, a:focus,
 i:hover,
 i:focus,
@@ -451,8 +455,6 @@ div[class*="-btn"] {
 .navbar .langs a:first-of-type,
 .navbar .search-btn {
   margin-left: 20px;
-  padding-left: 20px;
-  border-left: 1px solid #ddd;
   height: 20px;
   line-height: 20px;
 }
@@ -1083,8 +1085,8 @@ section.gallery .overlay i {
 */
 footer.main-footer {
     background: #0e0e0e;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     color: #fff;
 }
 
@@ -1706,6 +1708,10 @@ STYLE SWITCHER FOR DEMO
 
 .navbar-dark .navbar-brand {
   color: white;
+}
+
+.bottomPad{
+    padding-bottom:2em
 }
 
 .navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {

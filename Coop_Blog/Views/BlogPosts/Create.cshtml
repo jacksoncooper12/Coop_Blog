@@ -43,7 +43,7 @@
         <div class="form-group">
                 @Html.LabelFor(model => model.MediaPath, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input name="image" type="file" class="form-control" id="fileUpload" />
+                    <input name="image" type="file"  id="fileUpload" />
                     @Html.ValidationMessageFor(model => model.MediaPath, "", new { @class = "text-danger" })
                 </div>
             </div>

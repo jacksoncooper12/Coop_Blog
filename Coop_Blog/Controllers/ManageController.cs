@@ -10,6 +10,7 @@ using Coop_Blog.Models;
 
 namespace Coop_Blog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

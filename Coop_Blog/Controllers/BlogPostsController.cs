@@ -7,20 +7,49 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Coop_Blog.Helpers;
 using Coop_Blog.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Coop_Blog.Controllers
 {
+    [RequireHttps]
     public class BlogPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BlogPosts
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchStr)
         {
-            var allBlogPosts = db.BlogPosts.Where(b => b.Published).ToList();
-            return View(allBlogPosts);
+            int pageSize = 6; //specifies number of posts per page
+            int pageNumber = (page ?? 1); // ?? is a null coalescing operator (if left of ?? is null, use right of ??)
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+            return View(blogList.ToPagedList(pageNumber, pageSize));
+        }
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if(searchStr != null)
+            {
+                result = db.BlogPosts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) || p.Body.Contains(searchStr) || p.Comments.Any(c => c.Body.Contains(searchStr) || c.Author.FirstName.Contains(searchStr) || c.Author.LastName.Contains(searchStr) || c.Author.DisplayName.Contains(searchStr) || c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.BlogPosts.AsQueryable();
+            }
+            if (User.IsInRole("Admin"))
+            {
+                return result.OrderByDescending(p => p.Created);
+            }
+            else
+            {
+                return result.Where(p => p.Published).OrderByDescending(p => p.Created);
+            }
+            
         }
 
         // GET: BlogPosts/Details/5
@@ -33,7 +62,7 @@ namespace Coop_Blog.Controllers
             //var blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
             var detailsModel = new DetailsModel();
             detailsModel.Post = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
-            detailsModel.BlogPosts = db.BlogPosts.OrderByDescending(p => p.Created).Take(3).ToList();
+            detailsModel.BlogPosts = db.BlogPosts.OrderByDescending(p => p.Created).Where(b=>b.Published).ToList();
             if (detailsModel == null)
             {
                 return HttpNotFound();

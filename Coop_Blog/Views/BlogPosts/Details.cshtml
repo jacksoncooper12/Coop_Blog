@@ -1,4 +1,5 @@
 ﻿@model Coop_Blog.Models.DetailsModel
+@using Microsoft.AspNet.Identity
 <div class="container">
     <div class="row">
         <!-- Latest Posts -->
@@ -15,7 +16,7 @@
                             </a>
                             <div class="d-flex align-items-center flex-wrap">
                                 <div class="date"><i class="fa fa-clock-o"></i> @Model.Post.Created.ToString("MMM dd, yyyy")</div>
-                                <div class="comments"><i class="fa fa-comments"></i>12</div>
+                                <div class="comments"><i class="fa fa-comments"></i> @Model.Post.Comments.Count.ToString()</div>
                                 @if (this.User.IsInRole("Admin"))
                                 {
                                     <div class="comments"><a href="@Url.Action("Edit","BlogPosts",new { id = Model.Post.Id })">Edit</a></div>
@@ -45,63 +46,61 @@
                         </div>
                         <div class="post-comments">
                             <header>
-                                <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
+                                <h3 class="h6">Post Comments<span class="no-of-comments">(@Model.Post.Comments.Count.ToString())</span></h3>
                             </header>
+                            @foreach (var comment in Model.Post.Comments)
+                            {
                             <div class="comment">
                                 <div class="comment-header d-flex justify-content-between">
                                     <div class="user d-flex align-items-center">
-                                        <div class="image"><img src="/images/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                                        <div class="title"><strong>Jabi Hernandiz</strong><span class="date">May 2016</span></div>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.Identity.GetUserId() == comment.AuthorId)
+                                        {
+                                            <div class="title"><strong>@comment.Author.DisplayName</strong><span class="date">@comment.Created.ToString("MMM dd, yyyy '|' h:mm tt") | </span>
+                                            <span class="date"><a href="@Url.Action("Edit","Comments",new { id = comment.Id })">Edit</a> | </span>
+                                            <span class="date"><a href="@Url.Action("Delete","Comments",new { id = comment.Id })">Delete</a></span></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="title"><strong>@comment.Author.DisplayName</strong><span class="date">@comment.Created.ToString("MMM dd, yyyy '|' h:mm tt")</span></div>
+                                        }
                                     </div>
                                 </div>
-                                <div class="comment-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </div>
+                                <div class="">
+                                    <p id="`comment-${comment.Id}`">@comment.Body</p>
+                                </div><hr />
                             </div>
-                            <div class="comment">
-                                <div class="comment-header d-flex justify-content-between">
-                                    <div class="user d-flex align-items-center">
-                                        <div class="image"><img src="/images/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                                        <div class="title"><strong>Nikolas</strong><span class="date">May 2016</span></div>
-                                    </div>
-                                </div>
-                                <div class="comment-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </div>
-                            </div>
-                            <div class="comment">
-                                <div class="comment-header d-flex justify-content-between">
-                                    <div class="user d-flex align-items-center">
-                                        <div class="image"><img src="/images/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                                        <div class="title"><strong>John Doe</strong><span class="date">May 2016</span></div>
-                                    </div>
-                                </div>
-                                <div class="comment-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </div>
-                            </div>
+                            }
                         </div>
-                        <div class="add-comment">
-                            <header>
-                                <h3 class="h6">Leave a reply</h3>
-                            </header>
-                            <form action="#" class="commenting-form">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <input type="text" name="username" id="username" placeholder="Name" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                                    </div>
+                        @if (User.Identity.IsAuthenticated) 
+                        {
+                            using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("BlogPostId", Model.Post.Id)
+                                @Html.Hidden("Slug", Model.Post.Slug)
+                                <div class="add-comment">
+                                    <header>
+                                        <h3 class="h6">Leave a reply</h3>
+                                    </header>
+                                    <form action="#" class="commenting-form">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                @Html.TextArea("Body", new {rows=8, cols=10, @style= "width:100%; padding:10px", placeholder="Type Your Comment"})
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                        </div>
+                            }
+                        }
+                        else
+                        {
+                            <h5 class="topPad">Would you like to join the conversation?</h5>
+                            <h6 class="topPad"><a href="@Url.Action("Login","Account",new { title="Manage" })">Log in</a> or <a href="@Url.Action("Register","Account",new { title="Manage" })">Create an account</a></h6>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -114,7 +113,7 @@
                 <header>
                     <h5>Latest Posts</h5>
                 </header>
-                @foreach (var post in Model.BlogPosts)
+                @foreach (var post in Model.BlogPosts.Take(3))
                 {
                     <div class="blog-posts">
                         <a href=@Url.Action("Details","BlogPosts",new { slug = post.Slug })>
@@ -124,7 +123,7 @@
                                     <strong>@post.Title</strong>
                                     <div class="d-flex align-items-center">
                                         <div class="views"><i class="fa fa-clock-o"></i> @post.Created.ToString("MMM dd, yyyy")</div>
-                                        <div class="comments"><i class="fa fa-comments"></i>12</div>
+                                        <div class="comments"><i class="fa fa-comments"></i> @post.Comments.Count.ToString()</div>
                                     </div>
                                 </div>
                             </div>

@@ -187,6 +187,7 @@
     <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\DetailsModel.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageUploadValidator.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -431,6 +432,8 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\BlogPosts\partial.cshtml" />
+    <Content Include="Private.config" />
+    <Content Include="Views\Home\Confirmed.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

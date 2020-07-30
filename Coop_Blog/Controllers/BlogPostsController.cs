@@ -60,6 +60,29 @@ namespace Coop_Blog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //var blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
+            var detailsCurrent = new DetailsModel();
+            detailsCurrent.Post = db.BlogPosts.FirstOrDefault(b=>b.Slug == Slug);
+            var detailsPrev = new DetailsModel();
+            detailsPrev.Post = db.BlogPosts.OrderByDescending(b => b.Created).Where(b => b.Published).ToList().SkipWhile(b => b.Created != detailsCurrent.Post.Created).Skip(1).FirstOrDefault();
+            var detailsNext = new DetailsModel();
+            detailsNext.Post = db.BlogPosts.OrderBy(b => b.Created).Where(b => b.Published).ToList().SkipWhile(b => b.Created != detailsCurrent.Post.Created).Skip(1).FirstOrDefault();
+            if (detailsPrev.Post == null)
+            {
+                ViewBag.PreviousPost = "This is the First Post";
+            }
+            else
+            {
+                ViewBag.PreviousPost = detailsPrev.Post.Title;
+            }
+            if (detailsNext.Post == null)
+            {
+                ViewBag.NextPost = "This is the Latest Post";
+            }
+            else
+            {
+                ViewBag.NextPost = detailsNext.Post.Title ?? "No Newer Post";
+            }
+
             var detailsModel = new DetailsModel();
             detailsModel.Post = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
             detailsModel.BlogPosts = db.BlogPosts.OrderByDescending(p => p.Created).Where(b=>b.Published).ToList();
@@ -68,6 +91,37 @@ namespace Coop_Blog.Controllers
                 return HttpNotFound();
             }
             return View(detailsModel);
+        }
+        public ActionResult PreviousPost( bool prev, int id)
+        {
+            if (prev)
+            {
+                var detailsCurrent = new DetailsModel();
+                detailsCurrent.Post = db.BlogPosts.Find(id);
+                var detailsPrev = new DetailsModel();
+                detailsPrev.Post = db.BlogPosts.OrderByDescending(b => b.Created).Where(b => b.Published).ToList().SkipWhile(b => b.Created != detailsCurrent.Post.Created).Skip(1).FirstOrDefault();
+                //BlogPost currentPost = db.BlogPosts.Find(id);
+                //BlogPost previousPost = db.BlogPosts.OrderByDescending(b => b.Created).ToList().SkipWhile(b => b.Created != currentPost.Created).Skip(1).FirstOrDefault();
+                if (detailsPrev.Post == null)
+                {
+                    return RedirectToAction(detailsCurrent.Post.Slug, "Blog/Details");
+                }
+                return RedirectToAction(detailsPrev.Post.Slug, "Blog/Details");
+            }
+            else
+            {
+                var detailsCurrent = new DetailsModel();
+                detailsCurrent.Post = db.BlogPosts.Find(id);
+                var detailsNext = new DetailsModel();
+                detailsNext.Post = db.BlogPosts.OrderBy(b => b.Created).Where(b => b.Published).ToList().SkipWhile(b => b.Created != detailsCurrent.Post.Created).Skip(1).FirstOrDefault();
+                //BlogPost currentPost = db.BlogPosts.Find(id);
+                //BlogPost nextPost = db.BlogPosts.OrderBy(b => b.Created).ToList().SkipWhile(b => b.Created != currentPost.Created).Skip(1).FirstOrDefault();
+                if (detailsNext.Post == null)
+                {
+                    return RedirectToAction(detailsCurrent.Post.Slug, "Blog/Details");
+                }
+                return RedirectToAction(detailsNext.Post.Slug, "Blog/Details");
+            }
         }
 
         // GET: BlogPosts/Create

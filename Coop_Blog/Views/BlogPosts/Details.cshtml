@@ -1,5 +1,10 @@
 ﻿@model Coop_Blog.Models.DetailsModel
 @using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Details";
+    string prevPost = ViewBag.PreviousPost;
+    string nextPost = ViewBag.NextPost;
+}
 <div class="container">
     <div class="row">
         <!-- Latest Posts -->
@@ -30,16 +35,17 @@
                             <p>@Html.Raw(Model.Post.Body)</p>
                         </div>
                         <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
-                            <a href="#" class="prev-post text-left d-flex align-items-center">
+                            <a href=@Url.Action("PreviousPost", "BlogPosts", new {prev=true, id=Model.Post.Id }) class="prev-post text-left d-flex align-items-center">
                                 <div class="icon prev"><i class="fa fa-angle-left"></i></div>
                                 <div class="text">
                                     <strong class="text-primary">Previous Post </strong>
-                                    <h6>I Bought a Wedding Dress.</h6>
+                                    <h6>@prevPost</h6>
                                 </div>
-                            </a><a href="#" class="next-post text-right d-flex align-items-center justify-content-end">
+                            </a>
+                            <a href=@Url.Action("PreviousPost", "BlogPosts", new {prev=false, id=Model.Post.Id }) class="next-post text-right d-flex align-items-center justify-content-end">
                                 <div class="text">
                                     <strong class="text-primary">Next Post </strong>
-                                    <h6>I Bought a Wedding Dress.</h6>
+                                    <h6>@nextPost</h6>
                                 </div>
                                 <div class="icon next"><i class="fa fa-angle-right">   </i></div>
                             </a>
@@ -50,28 +56,30 @@
                             </header>
                             @foreach (var comment in Model.Post.Comments)
                             {
-                            <div class="comment">
-                                <div class="comment-header d-flex justify-content-between">
-                                    <div class="user d-flex align-items-center">
-                                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.Identity.GetUserId() == comment.AuthorId)
-                                        {
-                                            <div class="title"><strong>@comment.Author.DisplayName</strong><span class="date">@comment.Created.ToString("MMM dd, yyyy '|' h:mm tt") | </span>
-                                            <span class="date"><a href="@Url.Action("Edit","Comments",new { id = comment.Id })">Edit</a> | </span>
-                                            <span class="date"><a href="@Url.Action("Delete","Comments",new { id = comment.Id })">Delete</a></span></div>
-                                        }
-                                        else
-                                        {
-                                            <div class="title"><strong>@comment.Author.DisplayName</strong><span class="date">@comment.Created.ToString("MMM dd, yyyy '|' h:mm tt")</span></div>
-                                        }
+                                <div class="comment">
+                                    <div class="comment-header d-flex justify-content-between">
+                                        <div class="user d-flex align-items-center">
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.Identity.GetUserId() == comment.AuthorId)
+                                            {
+                                                <div class="title">
+                                                    <strong>@comment.Author.DisplayName</strong><span class="date">@comment.Created.ToString("MMM dd, yyyy '|' h:mm tt") | </span>
+                                                    <span class="date"><a href="@Url.Action("Edit","Comments",new { id = comment.Id })">Edit</a> | </span>
+                                                    <span class="date"><a href="@Url.Action("Delete","Comments",new { id = comment.Id })">Delete</a></span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="title"><strong>@comment.Author.DisplayName</strong><span class="date">@comment.Created.ToString("MMM dd, yyyy '|' h:mm tt")</span></div>
+                                            }
+                                        </div>
                                     </div>
+                                    <div class="">
+                                        <p id="`comment-${comment.Id}`">@comment.Body</p>
+                                    </div><hr />
                                 </div>
-                                <div class="">
-                                    <p id="`comment-${comment.Id}`">@comment.Body</p>
-                                </div><hr />
-                            </div>
                             }
                         </div>
-                        @if (User.Identity.IsAuthenticated) 
+                        @if (User.Identity.IsAuthenticated)
                         {
                             using (Html.BeginForm("Create", "Comments", FormMethod.Post))
                             {
@@ -85,7 +93,7 @@
                                     <form action="#" class="commenting-form">
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                @Html.TextArea("Body", new {rows=8, cols=10, @style= "width:100%; padding:10px", placeholder="Type Your Comment"})
+                                                @Html.TextArea("Body", new { rows = 8, cols = 10, @style = "width:100%; padding:10px", placeholder = "Type Your Comment" })
                                             </div>
                                             <div class="form-group col-sm-12">
                                                 <button type="submit" class="btn btn-secondary">Submit Comment</button>
@@ -109,7 +117,7 @@
 
             <!-- Widget [Latest Posts Widget] -->
 
-            <div class="widget latest-posts" >
+            <div class="widget latest-posts">
                 <header>
                     <h5>Latest Posts</h5>
                 </header>

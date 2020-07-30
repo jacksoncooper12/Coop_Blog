@@ -53,6 +53,7 @@
   background-color: #428bca;
   border-color: #428bca;
 }
+li > a !important
 
 .pagination > .disabled > span,
 .pagination > .disabled > a,

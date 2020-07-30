@@ -72,10 +72,10 @@
                             }
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" style="padding-right:10px">Contact</a>
+                            <a href=@Url.Action("contact","home") class="nav-link @Html.IsActive("home", "contact")" style="padding-right:10px">Contact</a>
                         </li>
                     </ul>
-                    <div><a href=@Url.Action("Index", "BlogPosts") class="search-btn"><i class="icon-search" style="padding-right:8px; padding-left:15px;"></i></a></div>
+                    <div><a href=@Url.Action("Index", "BlogPosts") class="search-btn"><i class="icon-search" style="padding-right:15px; padding-left:15px;"></i></a></div>
                     @Html.Action("_LoginPartial", "Home")
                 </div>
             </div>

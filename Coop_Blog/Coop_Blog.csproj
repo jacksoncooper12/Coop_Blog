@@ -434,6 +434,7 @@
     <Content Include="Views\BlogPosts\partial.cshtml" />
     <Content Include="Private.config" />
     <Content Include="Views\Home\Confirmed.cshtml" />
+    <None Include="Properties\PublishProfiles\CoopBlog - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -35,6 +35,12 @@ namespace Coop_Blog.Controllers
 
             return View();
         }
+
+        public ActionResult Confirmed()
+        {
+            return View();
+        }
+
         public PartialViewResult _LoginPartial()
         {
             var userId = User.Identity.GetUserId();
@@ -49,8 +55,8 @@ namespace Coop_Blog.Controllers
             {
                 try
                 {
-                    var body = "<p>Email From: <bold>{0}</bold>({1})</p><p>Message:</p><p>{2}</p>";
-                    var from = "MyPortfolio<example@email.com>";
+                    var body = "<p>New Message From: <bold>{0}<br><br></bold>Email: {1}</p><p>Message:</p><p>{2}</p>";
+                    var from = "My Blog<example@email.com>";
                     var email = new MailMessage(from, ConfigurationManager.AppSettings["emailto"])
                     {
                         Subject = string.Format(model.Subject),
@@ -59,7 +65,7 @@ namespace Coop_Blog.Controllers
                     };
                     var svc = new EmailService();
                     await svc.SendAsync(email);
-                    return View(new EmailModel());
+                    return View("Confirmed");
                 }
                 catch(Exception ex)
                 {

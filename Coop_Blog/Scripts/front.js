@@ -105,5 +105,22 @@ $(document).ready(function () {
         $('.navbar-toggler').toggleClass('active');
     });
 
+
+
+
 });
+function initMap() {
+    var location = { lat: 36.213890, lng: -80.599213 };
+    var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 7,
+        center: location,
+        streetViewControl: false,
+        mapTypeControl: false,
+    });
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    })
+}
+
 

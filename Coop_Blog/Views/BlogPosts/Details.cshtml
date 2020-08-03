@@ -14,13 +14,11 @@
                     <div class="post-thumbnail"><img src="@Model.Post.MediaPath" alt="..." class="img-fluid"></div>
                     <div class="post-details">
                         <h1>@Model.Post.Title </h1>
-                        <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
-                            <a href="#" class="author d-flex align-items-center flex-wrap">
+                        <div class="post-footer d-flex align-items-center flex-sm-row">
                                 <div class="avatar"><img src="~/Images/headshot.png" alt="..." class="img-fluid"></div>
-                                <div class="title"><span>Jackson Cooper</span></div>
-                            </a>
+                                <div class="comments"><span>Jackson Cooper  </span></div>
                             <div class="d-flex align-items-center flex-wrap">
-                                <div class="date"><i class="fa fa-clock-o"></i> @Model.Post.Created.ToString("MMM dd, yyyy")</div>
+                                <div class="date"><i class="fa fa-clock-o"></i>@Model.Post.Created.ToString("MMM dd, yyyy")</div>
                                 <div class="comments"><i class="fa fa-comments"></i> @Model.Post.Comments.Count.ToString()</div>
                                 @if (this.User.IsInRole("Admin"))
                                 {
@@ -59,7 +57,7 @@
                                 <div class="comment">
                                     <div class="comment-header d-flex justify-content-between">
                                         <div class="user d-flex align-items-center">
-                                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.Identity.GetUserId() == comment.AuthorId)
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                             {
                                                 <div class="title">
                                                     <strong>@comment.Author.DisplayName</strong><span class="date">@comment.Created.ToString("MMM dd, yyyy '|' h:mm tt") | </span>
@@ -73,7 +71,7 @@
                                             }
                                         </div>
                                     </div>
-                                    <div class="">
+                                    <div class="topPad">
                                         <p id="`comment-${comment.Id}`">@comment.Body</p>
                                     </div><hr />
                                 </div>

@@ -24,9 +24,7 @@ span {
   transition: all 0.3s;
 }
 
-#searchStr button{
-    border-radius:4px !important
-}
+
 
 a:hover, a:focus,
 i:hover,
@@ -454,14 +452,17 @@ div[class*="-btn"] {
 
 .navbar .langs a:first-of-type,
 .navbar .search-btn {
-  margin-left: 20px;
   height: 20px;
   line-height: 20px;
 }
 
 .navbar .search-btn {
   color: #333;
-  font-size: 0.9em;
+  font-size: 1em;
+}
+
+.search-btn:hover{
+    color:#999;
 }
 
 .navbar .navbar-toggler {
@@ -470,7 +471,7 @@ div[class*="-btn"] {
 
 .navbar .navbar-toggler span {
   width: 20px;
-  height: 2px;
+  height: 5px;
   background: #222;
   margin-bottom: 4px;
   display: block;
@@ -485,8 +486,8 @@ div[class*="-btn"] {
 }
 
 .navbar .navbar-toggler.active span:first-of-type {
-  -webkit-transform: rotate(45deg) translate(3px);
-  transform: rotate(45deg) translate(3px);
+  -webkit-transform: rotate(-45deg) translate(3px);
+  transform: rotate(-45deg) translate(3px);
 }
 
 .navbar .navbar-toggler.active span:nth-of-type(2) {
@@ -494,8 +495,8 @@ div[class*="-btn"] {
 }
 
 .navbar .navbar-toggler.active span:last-of-type {
-  -webkit-transform: rotate(-45deg) translate(3px);
-  transform: rotate(-45deg) translate(3px);
+  -webkit-transform: rotate(45deg) translate(3px);
+  transform: rotate(45deg) translate(3px);
 }
 
 .navbar .langs a {
@@ -526,7 +527,7 @@ div[class*="-btn"] {
   right: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.99);
+  background: rgba(170, 170, 170, 0.95);
   padding: 20px !important;
 }
 
@@ -555,25 +556,25 @@ div[class*="-btn"] {
 .navbar .search-area-inner input {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid black;
   background: none;
   padding: 10px 0;
   font-size: 1.6em;
-  font-weight: 300;
+  font-weight: 400;
   font-family: "Open Sans", sans-serif;
 }
 
 .navbar .search-area-inner input::-moz-placeholder {
   font-family: "Open Sans", sans-serif;
   color: #555;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 1.1em;
 }
 
 .navbar .search-area-inner input::-webkit-input-placeholder {
   font-family: "Open Sans", sans-serif;
   color: #555;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 1.1em;
 }
 
@@ -1270,12 +1271,12 @@ main.posts-listing .post-footer {
   margin-right: 20px;
 }
 .widget.latest-posts h5{
-    margin-left:-20px
+    margin-left:0px
 }
 
 .widget.latest-posts .item {
   margin-top: 40px;
-  margin-left: -20px;
+  margin-left: 0px;
   margin-right: -20px
 }
 
@@ -1659,11 +1660,8 @@ STYLE SWITCHER FOR DEMO
 }
 
 .navbar-toggler {
-  padding: 0.25rem 0.75rem;
   font-size: 1.25rem;
   line-height: 1;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
 }
 
 .navbar-light .navbar-brand {
@@ -1698,8 +1696,8 @@ STYLE SWITCHER FOR DEMO
   border-color: rgba(0, 0, 0, 0.1);
 }
 
-.navbar-light .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+.navbar-toggler-icon {
+  background-image: url("/Images/logo.png");
 }
 
 .navbar-light .navbar-text {
@@ -1720,6 +1718,10 @@ STYLE SWITCHER FOR DEMO
 
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.grey{
+    background-color:#ebebeb
 }
 
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
@@ -1743,7 +1745,7 @@ STYLE SWITCHER FOR DEMO
 }
 
 .navbar-dark .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  background-image: url("/Images/logo.png");
 }
 
 .navbar-dark .navbar-text {

@@ -28,7 +28,7 @@
 <body>
     <header class="header">
         <!-- Main Navbar-->
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-md">
             <div class="search-area">
                 <div class="search-area-inner d-flex align-items-center justify-content-center">
                     <div class="close-btn"><i class="icon-close"></i></div>
@@ -49,12 +49,16 @@
             </div>
             <div class="container">
                 <!-- Navbar Brand -->
-                <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <a href=@Url.Action("Index","Home") class="navbar-brand">Coop's Blog</a>
-                </div>
+
+
+                <a href=@Url.Action("Index","Home") class="navbar-brand">Coop's Blog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <!-- Navbar Menu -->
-                <div id="navbarcollapse" class="collapse navbar-collapse d-flex">
-                    <ul class="navbar-nav ml-auto vl" style="padding-right:18px">
+                <div id="navbarcollapse" class="navbar-collapse collapse">
+
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a href=@Url.Action("Index","Home") class="nav-link @Html.IsActive("Home", "Index")">Home</a>
                         </li>
@@ -72,10 +76,12 @@
                             }
                         </li>
                         <li class="nav-item">
-                            <a href=@Url.Action("contact","home") class="nav-link @Html.IsActive("home", "contact")" style="padding-right:10px">Contact</a>
+                            <a href=@Url.Action("contact","home") class="nav-link @Html.IsActive("home", "contact")" >Contact</a>
                         </li>
                     </ul>
-                    <div><a href=@Url.Action("Index", "BlogPosts") class="search-btn"><i class="icon-search" style="padding-right:15px; padding-left:15px;"></i></a></div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href=@Url.Action("Index", "BlogPosts") class="nav-link"><i class="search-btn icon-search"></i></a></li>
+                    </ul>
                     @Html.Action("_LoginPartial", "Home")
                 </div>
             </div>

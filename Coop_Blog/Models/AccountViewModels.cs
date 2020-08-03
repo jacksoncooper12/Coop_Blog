@@ -95,7 +95,7 @@ namespace Coop_Blog.Models
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(40, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        [StringLength(20, ErrorMessage = "Your {0} must be at least {2} characters long, and no longer than 20 characters", MinimumLength = 2)]
         [Display(Name = "Display Name")]
         public string DisplayName { get; set; }
     }

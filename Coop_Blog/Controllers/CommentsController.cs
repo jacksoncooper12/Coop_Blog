@@ -71,7 +71,7 @@ namespace Coop_Blog.Controllers
         }
 
         // GET: Comments/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,7 +107,7 @@ namespace Coop_Blog.Controllers
         }
 
         // GET: Comments/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

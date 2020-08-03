@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
     <div class="container">
-        <div class="col-md-10 text-center">
+        <div class="col-md-8 text-center">
             <h3 class="topPad">Create a new account</h3>
             <hr />
         </div>
@@ -15,43 +15,43 @@
             @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.DisplayName, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-3 control-label" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
-                <div class=" col-md-10">
-                    <input type="submit" class="btn btn-dark" style="margin-bottom:30px; margin-top:30px" value="Register" />
+                <div class=" col-md-8">
+                    <input type="submit" class="btn btn-dark" style="margin-bottom:40px; margin-top:30px" value="Register" />
                 </div>
             </div>
         }

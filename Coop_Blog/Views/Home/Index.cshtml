@@ -159,8 +159,6 @@
             document.getElementById('Joke').innerHTML = "There are only two kinds of programming languages: Those that people always complain about, and those that nobody use.";
             rand = 0.05
            }
-
-        window.setTimeout("TellJoke()", 10000);
     }
     function countdown()
     {
@@ -168,12 +166,13 @@
         if (seconds < 0) {
             seconds = 10;
             window.setTimeout("countdown()", 0);
+            TellJoke();
         } else {
             document.getElementById("njcountdown").innerHTML = seconds;
             window.setTimeout("countdown()", 1000);
         }
     }
-    TellJoke();
     countdown();
+    TellJoke();
 
 </script>
